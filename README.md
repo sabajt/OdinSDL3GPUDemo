@@ -15,12 +15,12 @@ col := math.lerp(p.col_start, p.col_end, blend_t)
 ```
 
 ## Geometry based graphics
-This example does not include any textures as images rendering, except for TTF text. The models are either hard coded vertices, or generated in code based on points of a circle. The [pack_radius_particle](https://github.com/sabajt/OdinSDL3GPUDemo/blob/a42ef477e8316791aea1f4622b25cacd9df50ca8/pack_particle.odin#L31) funciton is an example of building a circle-based model.   
+This example does not include any textures as images rendering, except for TTF text. The models are either hard coded vertices, or generated in code based on points of a circle. The [pack_radius_particle](https://github.com/sabajt/OdinSDL3GPUDemo/blob/a42ef477e8316791aea1f4622b25cacd9df50ca8/pack_particle.odin#L31) function is an example of building a circle-based model.   
 
 ## Batch rendering with arbitrary geometry
 Most of the models are drawn in just a couple draw calls for performance. This means that thousands of models can be drawn to the screen at once with no issue. The technique I used is based off of Evan Hemsley's sprite batching article https://moonside.games/posts/sdl-gpu-sprite-batcher/.
 
-The batched draw calls are found in `render.odin`, lines `190` and `205`. In order to prepare the CPU data for transfer to the GPU in this pipeline, the various `pack` functions fill arrays with models and vertices before each render pass.
+The batched draw calls are found in [render.odin](https://github.com/sabajt/OdinSDL3GPUDemo/blob/main/render.odin), lines [190](https://github.com/sabajt/OdinSDL3GPUDemo/blob/a42ef477e8316791aea1f4622b25cacd9df50ca8/render.odin#L190) and [205](https://github.com/sabajt/OdinSDL3GPUDemo/blob/a42ef477e8316791aea1f4622b25cacd9df50ca8/render.odin#L205). In order to prepare the CPU data for transfer to the GPU in this pipeline, the various [pack](https://github.com/sabajt/OdinSDL3GPUDemo/blob/main/pack.odin) functions fill arrays with models and vertices before each render pass.
 
 The shader used for batching is `BatchShape.vert.hlsl`, and uses 2 storage buffers to hold the model and vertex data. Instead of passing in vertex data via `Input`, the input in this case is a pair of model and vertex indexes that can then be read from the storage buffers during shader execution. This allows the geometry to be flexible (we aren't just batching quads here), but still have the benefits of minimal draw calls to the GPU.
 
