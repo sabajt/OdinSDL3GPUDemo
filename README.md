@@ -2,9 +2,9 @@
 Small game engine example using SDL3 GPU and Odin. This is a 2 player asteroids-like game featuring screen wrapping, waves of unique enemies and supports thousands of models / particles on the screen at once.
 
 ## Fixed timestep game loop
-To achieve a smooth 60 fps, the update and render loop is controlled with a fixed timestep: see the `AppIterate` function of `main.odin`. The implementation is based on Glenn Fiedler's article: https://gafferongames.com/post/fix_your_timestep/. 
+To achieve a smooth 60 fps, the update and render loop is controlled with a fixed timestep: see the [AppIterate](https://github.com/sabajt/OdinSDL3GPUDemo/blob/a42ef477e8316791aea1f4622b25cacd9df50ca8/main.odin#L58) function of `main.odin`. The implementation is based on Glenn Fiedler's article: https://gafferongames.com/post/fix_your_timestep/, and has the nice property of creating deterministic simulations.
 
-The simulation runs precisely every 16 Milliseconds, via the `update()` function. The rendering (`render(dt)`) is decoupled from the the simulation update so will run as fast as needs to. The delta time is calculated using an accumulator (`lag_time`) and passed into the render function to interpolate everything which is drawn, so animations appear smooth. Here is an example of interpolating previous and current rendering from `pack_radius_particle`:
+The simulation runs precisely every 16 Milliseconds, via the [update](https://github.com/sabajt/OdinSDL3GPUDemo/blob/a42ef477e8316791aea1f4622b25cacd9df50ca8/update.odin#L7) function. The [rendering function](https://github.com/sabajt/OdinSDL3GPUDemo/blob/a42ef477e8316791aea1f4622b25cacd9df50ca8/render.odin#L10C1-L10C7) is decoupled from the the simulation update so will run as frequently as possible. Delta time is calculated using an accumulator, `lag_time`, and passed into the render function to interpolate everything which is drawn, so animations appear smooth. Here is an example of interpolating previous and current rendering from [pack_radius_particle](https://github.com/sabajt/OdinSDL3GPUDemo/blob/a42ef477e8316791aea1f4622b25cacd9df50ca8/pack_particle.odin#L31):
 
 ```
 blend_t := math.lerp(p.last_t, p.t, dt)
@@ -15,7 +15,7 @@ col := math.lerp(p.col_start, p.col_end, blend_t)
 ```
 
 ## Geometry based graphics
-This example does not include any textures as images rendering, except for TTF text. The models are either hard coded vertices, or generated in code based on points of a circle. The `pack_radius_particle` funciton is an example of building a circle-based model.   
+This example does not include any textures as images rendering, except for TTF text. The models are either hard coded vertices, or generated in code based on points of a circle. The [pack_radius_particle](https://github.com/sabajt/OdinSDL3GPUDemo/blob/a42ef477e8316791aea1f4622b25cacd9df50ca8/pack_particle.odin#L31) funciton is an example of building a circle-based model.   
 
 ## Batch rendering with arbitrary geometry
 Most of the models are drawn in just a couple draw calls for performance. This means that thousands of models can be drawn to the screen at once with no issue. The technique I used is based off of Evan Hemsley's sprite batching article https://moonside.games/posts/sdl-gpu-sprite-batcher/.
