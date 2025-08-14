@@ -1,0 +1,5 @@
+non-branching but highly sus sdf shader code that somehow worked for circle thickness
+
+float segment = max(radius - length(dis), -1);
+float norm_seg = floor(thic / segment); // yeah this can still be 0
+float zero_or_one = min(1, norm_seg); // and then what it's a huge neg number?

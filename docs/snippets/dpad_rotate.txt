@@ -1,0 +1,65 @@
+// dpad rotation
+
+
+// globals
+
+Rotate_Dir :: enum {
+	None,
+	Left,
+	Right
+}
+
+P1_ROT_ACL : f32 : 0.015
+P1_MAX_ROT_VEL : f32 : 0.25 
+P1_ROT_DRAG : f32 : 0.005 
+
+p1_rot_dir : Rotate_Dir = .None 
+
+
+// input
+
+// GAMEPAD_BUTTON_DOWN
+
+button := sdl.GamepadButton(event.gbutton.button)
+
+#partial switch button {
+
+case .DPAD_LEFT:
+	handle_p1_rotate_start(.Left)
+
+case .DPAD_RIGHT:
+	handle_p1_rotate_start(.Right)
+}
+
+// GAMEPAD_BUTTON_UP
+
+#partial switch button {
+
+case .DPAD_LEFT:
+	handle_p1_rotate_end(.Left)
+
+case .DPAD_RIGHT:
+	handle_p1_rotate_end(.Right)
+}
+
+// update
+
+p1_rot_acl := f32(0)
+
+switch p1_rot_dir {
+case .Left:
+	p1_rot_acl = P1_ROT_ACL
+case .Right:
+	p1_rot_acl = -P1_ROT_ACL
+case .None:
+}
+
+p1_rot_vel += p1_rot_acl
+p1_rot_vel = clamp(p1_rot_vel, -P1_MAX_ROT_VEL, P1_MAX_ROT_VEL)
+
+if p1_rot_vel > 0 {
+	p1_rot_vel = max(0, p1_rot_vel - P1_ROT_DRAG)
+} else if p1_rot_vel < 0 {
+	p1_rot_vel = min(0, p1_rot_vel + P1_ROT_DRAG)
+}
+

@@ -1,0 +1,207 @@
+Todo SoCS
+
+- replace current "text" with ttf
+- support custom sdf modes (circle, star, etc)
+- eyeball enemy
+- multiwave? 
+- sound
+	- play sound
+	- warp ins
+	- enemy explosions
+	- player explosions
+	- shoot
+	- bomb drop 
+	- bomb explode
+	- pause / unpause
+	- menu move
+	- menu select / start 
+- wobble render
+- enemy type: goes in and out of visibility / collidability 
+- bug: player move on game over / menu reset? (movement not cleared?)
+- game over stats (at least the wave you got to?)
+- enemy type: big very slow (or stationary?) that does nothing but when shot creates secondary enemies
+- enemy type: cluster "electron" or "solar system" style: orbit around center w/ dynamic physics 
+- title screen: press start feedback (background flash?)
+- bug: overflow some gpu buffer (prolly inputs?) after enough enemies are created
+- player 1 die: choose random non-enemy spot to spawn
+- lose animation v2 
+- enemy arbitrary geometry 
+- dynamic trail render mode 
+- static trail render mode (black hole enemy)
+- glow effect
+- particles: single sdf
+- p1 control: lerp rotate
+- radius effect arbitrary geometry?
+- bkg: grid gradient
+- bkg: animated line-mode shapes
+- bkg: paralax
+- radius effect: batch mode that use vel ease + color in layers (fireworks) instead of locked in circles (rename synchronized mode?)
+
+
+SoCS Ideas
+
+- p2 attack alt: drop 2 "points" and detonate as line
+	- to handle multi drop (3+ points) as power up 
+- gfx: light background and grid (static and dynamic? with lerped particle explode color)
+- gfx: soft edges (sdf) grid
+- p2 drop more than one bomb before detonation powerup
+- out of wrap space big boss (multi hit) with like minions 
+	- example: "smokey circle" with little smokey circular minions during battle
+	- afterwards turns into a beacon (powerup?) 
+	- bosses are placed at uniformly random spaces and background changes towards them (color based?)
+	- defeat 4 bosses to "win" (or transfer level?)
+- p2 bomb slowly travel towards closest enemy
+- single large sdf effect (separate frag shader?)
+- glowing sdf (adjust fade val w/ same thicness over sin(t))
+- power ups are expose nobs for player (i.e. adjust speed by x amt)
+- geo enemies: "evolve" and/or have random traits (visual + functional)
+- player death A: reset with delay: 3 lives each
+- player death B: reset with delay during which other player has to survive for amt of time
+	- A1: delay could be hidden
+	- A2: trailing other player bubble (radius graph)
+- black holes (use non-clear render trick to create "compass art")
+- enemy: 'screen border' spikes
+	- lock players in so they can't travel out of static area 
+	- could be solid or maybe better as many coordinated parts
+- enemy: coordinated enemy patterns
+- p2 weapon orbs + control scheme
+	- limited number destroy + are destroyed on touch enemy
+	- delay refurbish
+	- hold button to spin them (can't miss in short range)
+- thematic background (clean asia style, to match enimies)
+- survivors metastructure (choose from 3)
+- spellbook metastructure (big list a la rift wizard)
+- minion drop attack: could be main attack, powerup, or spellbook
+- big slow moving second player
+- enemy ship takeover 
+- switch camera focus b/w player 1 and 2
+- freeze camera during certain sections
+- positions in space
+- 2 step teleport: beacon, warp
+- player 2 control: short distance rewind (keep cur velocity but revert)
+- player 2 control: hold to adjust short distant rewind len and rewind on button up?
+
+Todo General
+
+- quad textures for sprites
+- batched textures for sprites
+- game internal res -> scale to best fit window (provide same vp size) (resolution upscale?)
+- release memory correctly
+- batch using indirect draw
+- implement Matrix4x4_CreateOrthographicOffCenter: SDL GPU examples common.c
+- game select menu
+- shaded sphere
+- ortho 3D cube
+- ambient + diffuse light
+
+2 Player Game Pack Ideas
+
+- launch thing game: pass n play throw thing and keep up in are w/ tricks compo
+- planet hopper: pass n play circular gravity based lunar landar b/w planets - reenforcement learning 
+- super hammer team: shared screen action slamming into boxes to fix
+- socs (spheres of chaos survivors)
+- shared mind adventure (2 player simultaneous text adventure)
+- mouse's mirror: 2 player collab logic puzzle 
+
+Mouse's Mirror Ideas
+
+- cats carry portalesque mirrors to redirect mice
+- move independent of time 
+- p1 can advance time, p2 reverse
+
+Done
+
+- text 
+- try vs code
+- setup debugger
+- player 2 control bomb with right stick
+- p2 bomb flashes for vis
+- tune wave progression
+- better enemy colors
+- player respawn v2: improve animation
+- pick non-enemy respawn spot (iterate until > certain distance from all enemy?)
+- player 2 respawn: blinking grace period
+- main menu: title text  
+- game end condition v1: both players die before the reset period
+- game over: press start to goto main menu
+- 2nd player die: big game over text
+- find sfxr-like
+- one player die countdown: show progress UI
+- map menu controls to joystick
+- "secret" quit game key (so we can use fullscreen)
+- title screen: press start text
+- title screen: start to start
+- reset menu: select quit/menu 
+- render "text"
+- select resume 
+- menu item with selector
+- enemy warp effect v2
+- players colors v2: black with color outline?
+- style onceover (outline black center style?)
+- enemy type: fast moving one direction coordinated to create interesting pattern
+- enemy type: wavey pattern (take advantage of screen wrapping again?)
+- enemy type: current follow type (seeker)
+- enemy: make component enemy container with components (geo collider)
+- ease particles t options
+- enemy warp in animation: "scale down" w/ dynamic trail + "repeat delay"
+- gfx: enemy warp in layers offset
+- enemy progression: next appears after wave destroyed (short delay)
+- enemy progression: group of coordinated type(s) appear simultaneously 
+- p1 reverse and dcl particles
+- p1 control: reverse instead of stop
+- player 2 remote detonation v1
+- player 2 bomb attack
+- player 2 dash attack
+- player 2 particle trail
+- player 2 collision / particles / reset
+- player 2 shoot (close range)
+- player 2 control: alt style map axis directly to directional vel
+- p2 control: analog zip
+- particle thrust trail
+- enemy particle trail
+- enemy moves v2: facing dir, and only can gradually turn
+- enemy warp in (w/ effect)
+- enemy destroy particles
+- shoot
+- bullets destroy enemies
+- enemy moves
+- catch-up camera
+- reset player w/ delay after death
+- enemies: destory player, create particles
+- collisions
+- enemies: array of non-moving shapes
+- particles: multi-model mode
+- particles: multi-model sdf
+- particles: line mode render
+- particles: animate radius, rotation
+- particles: single circ-shape vertex solid
+- batching arbitrary geo using single or few shared buffers
+- p1 control: dpad option
+- z order
+- alpha color
+- p1 controls v2
+- max player 1 speed
+- player 2 movement
+- object screen wrapping
+- grid num based on screen size
+- render player 2
+- screen wrap background
+- basic camera
+- grid background
+- switch shaders (or multi-use single shader?)
+- instance draws 
+- move ship
+- joystick input
+- interpolate render
+- rotate ship with acl / vel / drag
+- ship
+- rotate
+- fixed step game loop
+- sdf circle
+- model view projection (ortho)
+- quad
+- index data
+- vertex data 
+- triangle 
+
+
