@@ -7,6 +7,8 @@ To achieve a smooth 60 fps, the update and render loop is controlled with a fixe
 The simulation runs precisely every 16 Milliseconds, via the `update()` function. The rendering (`render(dt)`) is decoupled from the the simulation update so will run as fast as needs to. The delta time is calculated using an accumulator (`lag_time`) and passed into the render function to interpolate everything which is drawn, so animations appear smooth. Here is an example of interpolating previous and current rendering from `pack_radius_particle`:
 
 ```
+blend_t := math.lerp(p.last_t, p.t, dt)
+
 rad := math.lerp(p.rad_start, p.rad_end, blend_t)
 rot := math.lerp(p.rot_start, p.rot_end, blend_t)
 col := math.lerp(p.col_start, p.col_end, blend_t)
