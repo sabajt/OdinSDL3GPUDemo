@@ -20,7 +20,7 @@ Most of the models are drawn in just a couple draw calls for performance. This m
 
 The batched draw calls are found in `render.odin`, lines `190` and `205`. In order to prepare the CPU data for transfer to the GPU in this pipeline, the various `pack` functions fill arrays with models and vertices before each render pass.
 
-The shader used for batching is `BatchShape.vert.hlsl`, and uses 2 storage buffers to hold the model and vertex data. Instead of passing in vertex data via `Input`, the input in this case is a pair of model and vertex indexes that are read from the storage buffers. This allows the geometry to be flexible (we aren't just batching quads here), but still have the benefits of minimal draw calls to the GPU.
+The shader used for batching is `BatchShape.vert.hlsl`, and uses 2 storage buffers to hold the model and vertex data. Instead of passing in vertex data via `Input`, the input in this case is a pair of model and vertex indexes that can then be read from the storage buffers during shader execution. This allows the geometry to be flexible (we aren't just batching quads here), but still have the benefits of minimal draw calls to the GPU.
 
 ## Simple physics
 There is no physics library used here, just simple movement based on velocity and acceleration. `update_player_1` is an example of this.
