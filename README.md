@@ -22,11 +22,11 @@ Most of the models are drawn in just a couple draw calls for performance. This m
 
 The batched draw calls are found in [render.odin](https://github.com/sabajt/OdinSDL3GPUDemo/blob/main/render.odin), lines [190](https://github.com/sabajt/OdinSDL3GPUDemo/blob/a42ef477e8316791aea1f4622b25cacd9df50ca8/render.odin#L190) and [205](https://github.com/sabajt/OdinSDL3GPUDemo/blob/a42ef477e8316791aea1f4622b25cacd9df50ca8/render.odin#L205). In order to prepare the CPU data for transfer to the GPU in this pipeline, the various [pack](https://github.com/sabajt/OdinSDL3GPUDemo/blob/main/pack.odin) functions fill arrays with models and vertices before each render pass.
 
-The shader used for batching is `BatchShape.vert.hlsl`, and uses 2 storage buffers to hold the model and vertex data. Instead of passing in vertex data via `Input`, the input in this case is a pair of model and vertex indexes that can then be read from the storage buffers during shader execution. This allows the geometry to be flexible (we aren't just batching quads here), but still have the benefits of minimal draw calls to the GPU.
+The shader used for batching is [BatchShape.vert.hlsl](https://github.com/sabajt/OdinSDL3GPUDemo/blob/main/shaders/source/BatchShape.vert.hlsl), and uses 2 storage buffers to hold the model and vertex data. Instead of passing in vertex data via `Input`, the input in this case is a pair of model and vertex indexes that can then be read from the storage buffers during shader execution. This allows the geometry to be flexible (we aren't just batching quads here), but still have the benefits of minimal draw calls to the GPU.
 
 ## SDF rendering pipeline
-`SDFQuad.frag.hlsl` shows how circles for particles are rendered using a signed distance field. This rendering pipeline could be extended to support other SDF shapes such as the ones described here: https://iquilezles.org/articles/distfunctions2d/
+[SDFQuad.frag.hlsl](https://github.com/sabajt/OdinSDL3GPUDemo/blob/main/shaders/source/SDFQuad.frag.hlsl) shows how circles for particles are rendered using a signed distance field. This rendering pipeline could be extended to support other SDF shapes such as the ones described here: https://iquilezles.org/articles/distfunctions2d/
 
 ## Simple physics
-There is no physics library used here, just simple movement based on velocity and acceleration. `update_player_1` is an example of this.
+There is no physics library used here, just simple movement based on velocity and acceleration. [update_player_1](https://github.com/sabajt/OdinSDL3GPUDemo/blob/main/update_player_1.odin) is an example of this. Note that player 2 has a different control scheme, movement and attack style.
 
