@@ -15,7 +15,7 @@ col := math.lerp(p.col_start, p.col_end, blend_t)
 ```
 
 ## Geometry based graphics
-This example does not include any textures as images rendering, except for TTF text. The models are either hard coded vertices, or generated in code based on points of a circle. See `pack_geo_collider.odin` for how the circle-based vertices are constructed. 
+This example does not include any textures as images rendering, except for TTF text. The models are either hard coded vertices, or generated in code based on points of a circle. The `pack_radius_particle` funciton is an example of building a circle-based model.   
 
 ## Batch rendering with arbitrary geometry
 Most of the models are drawn in just a couple draw calls for performance. This means that thousands of models can be drawn to the screen at once with no issue. The technique I used is based off of Evan Hemsley's sprite batching article https://moonside.games/posts/sdl-gpu-sprite-batcher/.
